@@ -11,11 +11,13 @@ var minifyCSS = require('gulp-minify-css');
 var react = require("gulp-react");
 var gulpif = require("gulp-if");
 var uglify = require("gulp-uglify");
+var gutil = require('gulp-util');
 var sourcemaps = require("gulp-sourcemaps");
 var source = require("vinyl-source-stream");
 var envify = require("envify");
 var shim = require("browserify-shim");
 var babelify = require("babelify");
+var watchify = require("watchify");
 
 // Config
 var packagejson =  require("./package");
@@ -43,19 +45,25 @@ gulp.task("copy-js", function () {
   .pipe(gulp.dest(paths.out.build_js));
 });
 
-gulp.task("app-compile", ["jsx-compile", "copy-js"], function() {
-  return browserify({
-       entries: paths.in.app,
-       debug: DEBUG
-     })
-    .require("react")
-    .transform(shim)
-    .transform(envify)
-    .transform(babelify)
-    .bundle()
-    .pipe(source("app.js"))
-    .pipe(gulp.dest(paths.out.public));
-});
+var bundler = watchify(browserify({
+    entries: paths.in.app,
+    debug: DEBUG
+}));
+bundler.on('update', bundle); // on any dep update, runs the bundler
+bundler.on('log', gutil.log); // output build logs to terminal
+
+function bundle() {
+    bundler.require("react");
+    bundler.transform(shim);
+    bundler.transform(envify);
+    bundler.transform(babelify);
+
+    bundler.bundle()
+        .pipe(source("app.js"))
+        .pipe(gulp.dest(paths.out.public));
+}
+
+gulp.task("app-compile", ["jsx-compile", "copy-js"], bundle);
 
 gulp.task("less-compile", function () {
   return gulp.src(paths.in.less)
@@ -86,7 +94,7 @@ gulp.task("install", ["app-compile", "less-compile", "write-build-info" ]);
 /**
  * Global tasks
  */
-gulp.task("dev", ["install", "watch"]);
+gulp.task("dev", ["install"]);
 
 gulp.task("production", ["install"], function () {
   return gulp.src(paths.out.public + "/*.js")

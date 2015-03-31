@@ -12,7 +12,7 @@ module.exports = {
     out: {
       build_info: root + "/build-info.json",
       build_js: root + "/build",
-      public: root + "/public"
+      public: root + "/../MethodFitness_Api/public"
     }
   }
 };
