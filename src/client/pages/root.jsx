@@ -3,16 +3,13 @@
 var React = require("react");
 var Navbar = require("./../components/navbar");
 var Layout = require("./../pages/layout");
-var Fluxxor = require("fluxxor");
-var constants = require("./../mfConstants");
-
-var FluxMixin = Fluxxor.FluxMixin(React);
+var Luxxor = require("./../services/luxxor");
 
 var Root = React.createClass({
   displayName: "Root",
-  mixins: [FluxMixin],
+  mixins: [Luxxor.FluxMixin],
   statics: {
-    resolve: constants.USERS.FETCH_USER
+    resolve: Luxxor.constants.USERS.FETCH_USER
   },
   getStateFromFlux: function(){
     return{

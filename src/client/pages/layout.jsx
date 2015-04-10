@@ -12,12 +12,10 @@ var DropdownButton = require("react-bootstrap").DropdownButton;
 var ReactRouterBootstrap = require('react-router-bootstrap');
 var ButtonLink = ReactRouterBootstrap.ButtonLink;
 
-var Fluxxor = require("Fluxxor");
-var FluxMixin = Fluxxor.FluxMixin(React),
-  StoreWatchMixin = Fluxxor.StoreWatchMixin;
+var Luxxor = require("./../services/luxxor");
 
 var Layout = React.createClass({
-  mixins: [FluxMixin,StoreWatchMixin("authStore")],
+  mixins: [Luxxor.FluxMixin,Luxxor.StoreWatchMixin("authStore")],
   getStateFromFlux: function(){return{}},
   render: function() {
     var authStore = this.getFlux().store("authStore");

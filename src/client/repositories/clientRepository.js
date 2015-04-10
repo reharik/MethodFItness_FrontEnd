@@ -9,7 +9,7 @@ var URLS = {
 
 
 module.exports = {
-  loadClientSummaries: function () {
+  LoadClientSummaries: function () {
     return requestPromise( request.get(URLS.CLIENTS)
         .set("Accept", "application/json")
     );

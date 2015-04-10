@@ -1,19 +1,17 @@
 "use strict";
 
+var Luxxor = require("./../services/luxxor");
 
-var Fluxxor = require("fluxxor"),
-  constants = require("./../mfConstants");
-
-var clientSummaryStore = Fluxxor.createStore({
+var clientSummaryStore = Luxxor.createStore({
   initialize: function() {
     this.loading = false;
     this.error = null;
     this.clientSummaries = [];
 
     this.bindActions(
-      constants.CLIENTS.LOAD_CLIENT_SUMMARIES, this.onLoadClientSummaries,
-      constants.CLIENTS.LOAD_CLIENT_SUMMARIES_SUCCESS, this.onLoadClientSummariesSuccess,
-      constants.CLIENTS.LOAD_CLIENT_SUMMARIES_FAIL, this.onLoadClientSummariesFail
+      Luxxor.constants.CLIENTS.LOAD_CLIENT_SUMMARIES, this.onLoadClientSummaries,
+      Luxxor.constants.CLIENTS.LOAD_CLIENT_SUMMARIES_SUCCESS, this.onLoadClientSummariesSuccess,
+      Luxxor.constants.CLIENTS.LOAD_CLIENT_SUMMARIES_FAIL, this.onLoadClientSummariesFail
     );
   },
   onLoadClientSummaries: function() {

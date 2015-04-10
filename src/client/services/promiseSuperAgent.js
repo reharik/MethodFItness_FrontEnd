@@ -1,3 +1,5 @@
+var Promise = require("bluebird");
+
 
 function requestCallback(error, res,resolve,reject){
   if(error){ reject(error); }

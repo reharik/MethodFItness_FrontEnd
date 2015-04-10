@@ -1,28 +1,35 @@
 "use strict";
 
+var Luxxor = require("./../services/luxxor");
 
-var Fluxxor = require("fluxxor"),
-  constants = require("./../mfConstants");
 
-var AuthStore = Fluxxor.createStore({
+var AuthStore = Luxxor.createStore({
   initialize: function () {
     this.loading = false;
     this.error = null;
     this._user = null;
 
+    this.bindActions2({servicesActions:[
+      Luxxor.constants.USERS.FETCH_USER,
+      Luxxor.constants.USERS.SIGN_IN
+    ],
+    directActions:{}
+    });
+
+
     this.bindActions(
-      constants.USERS.FETCH_USER, this.onFetchUser,
-      constants.USERS.FETCH_USER_SUCCESS, this.onFetchUserSuccess,
-      constants.USERS.FETCH_USER_FAIL, this.onFetchUserFail,
-      constants.USERS.SIGN_IN, this.onSignIn,
-      constants.USERS.SIGN_IN_SUCCESS, this.onSignInSuccess,
-      constants.USERS.SIGN_IN_FAIL, this.onSignInFail,
-      constants.USERS.SIGN_OUT, this.onSignOut,
-      constants.USERS.SIGN_OUT_SUCCESS, this.onSignOutSuccess,
-      constants.USERS.SIGN_OUT_FAIL, this.onSignOutFail,
-      constants.USERS.SIGN_UP, this.onSignUp,
-      constants.USERS.SIGN_UP_SUCCESS, this.onSignUpSuccess,
-      constants.USERS.SIGN_UP_FAIL, this.onSignUpFail
+      Luxxor.constants.USERS.FETCH_USER, this.onFetchUser,
+      Luxxor.constants.USERS.FETCH_USER_SUCCESS, this.onFetchUserSuccess,
+      Luxxor.constants.USERS.FETCH_USER_FAIL, this.onFetchUserFail,
+      Luxxor.constants.USERS.SIGN_IN, this.onSignIn,
+      Luxxor.constants.USERS.SIGN_IN_SUCCESS, this.onSignInSuccess,
+      Luxxor.constants.USERS.SIGN_IN_FAIL, this.onSignInFail,
+      Luxxor.constants.USERS.SIGN_OUT, this.onSignOut,
+      Luxxor.constants.USERS.SIGN_OUT_SUCCESS, this.onSignOutSuccess,
+      Luxxor.constants.USERS.SIGN_OUT_FAIL, this.onSignOutFail,
+      Luxxor.constants.USERS.SIGN_UP, this.onSignUp,
+      Luxxor.constants.USERS.SIGN_UP_SUCCESS, this.onSignUpSuccess,
+      Luxxor.constants.USERS.SIGN_UP_FAIL, this.onSignUpFail
     )
   },
 
@@ -39,7 +46,7 @@ var AuthStore = Fluxxor.createStore({
   },
   onFetchUserFail: function (payload) {
     this.loading = false;
-    this.error = payload.error;
+    this.error = payload;
     this.emit("change");
   },
 
@@ -56,7 +63,7 @@ var AuthStore = Fluxxor.createStore({
   },
   onSignInFail: function (payload) {
     this.loading = false;
-    this.error = payload.error;
+    this.error = payload;
     this.emit("change");
   },
 
@@ -73,7 +80,7 @@ var AuthStore = Fluxxor.createStore({
   },
   onSignOutFail: function (payload) {
     this.loading = false;
-    this.error = payload.error;
+    this.error = payload;
     this.emit("change");
   },
 
@@ -90,7 +97,7 @@ var AuthStore = Fluxxor.createStore({
   },
   onSignUpFail: function (payload) {
     this.loading = false;
-    this.error = payload.error;
+    this.error = payload;
     this.emit("change");
   },
 

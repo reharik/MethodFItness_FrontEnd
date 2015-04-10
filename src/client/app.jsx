@@ -1,5 +1,6 @@
+require("babel/polyfill");
 var React = require("react");
-var Fluxxor = require("fluxxor");
+var Luxxor = require("./services/luxxor");
 var Router = require("react-router");
 
 var constants = require("./mfConstants");
@@ -18,8 +19,10 @@ var stores = {
   clientStore: new ClientStore(),
   clientSummaryStore: new ClientSummaryStore()
 };
-
-var flux = new Fluxxor.Flux(stores, actions);
+var allActions = _.merge(actions.authActions,actions.clientActions);
+var flux = new Luxxor.Flux(stores,allActions);
+//flux.addAction(actions.authActions);
+//flux.addAction(actions.clientActions);
 window.flux = flux;
 flux.on("dispatch", function(type, payload) {
   if (console && console.log) {
@@ -31,8 +34,10 @@ var container = document.getElementById("content");
 
 Router.run(routes, (Handler, State) => {
   _.each(State.routes, function(route) {
-    if (route.handler.resolve) {
+    if (route.handler.resolve && flux.actions[route.handler.resolve]) {
       flux.actions[route.handler.resolve]();
+    }else{
+        console.log("bad route: {0}", route.handler.resolve);
     }
   });
   React.render(

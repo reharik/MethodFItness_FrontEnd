@@ -2,6 +2,8 @@
 /**
  * Dependencies
  */
+require("babel/polyfill");
+
 var fs = require("fs");
 var gulp = require("gulp");
 var browserify = require("browserify");
@@ -49,8 +51,6 @@ var bundler = watchify(browserify({
     entries: paths.in.app,
     debug: DEBUG
 }));
-bundler.on('update', bundle); // on any dep update, runs the bundler
-bundler.on('log', gutil.log); // output build logs to terminal
 
 function bundle() {
     bundler.require("react");
@@ -62,6 +62,9 @@ function bundle() {
         .pipe(source("app.js"))
         .pipe(gulp.dest(paths.out.public));
 }
+
+bundler.on('update', function(){ console.log('update event'); bundle();}); // on any dep update, runs the bundler
+bundler.on('log', gutil.log); // output build logs to terminal
 
 gulp.task("app-compile", ["jsx-compile", "copy-js"], bundle);
 

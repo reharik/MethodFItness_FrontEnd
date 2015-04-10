@@ -1,17 +1,17 @@
 "use strict";
 
 
-var Fluxxor = require("fluxxor"),
-  constants = require("./../mfConstants");
+var Luxxor = require("./../services/luxxor");
 
-var clientStore = Fluxxor.createStore({
+
+var clientStore = Luxxor.createStore({
   initialize: function(){
     this.loading = false;
     this.error = null;
     this.clients = [];
 
     this.bindActions(
-      constants.CLIENTS.TRAINER_GENERATED_CLIENT_SIGNED_UP, this.onTrainerGeneratedClientSignedUp
+        Luxxor.constants.CLIENTS.TRAINER_GENERATED_CLIENT_SIGNED_UP, this.onTrainerGeneratedClientSignedUp
     );
   },
   onTrainerGeneratedClientSignedUp: function(payload){

@@ -6,24 +6,21 @@ var Link = Router.Link;
 var Jumbotron = require("react-bootstrap").Jumbotron;
 var Row = require("react-bootstrap").Row;
 var Col = require("react-bootstrap").Col;
-var Input = require("react-bootstrap").Input;
 var Button = require("react-bootstrap").Button;
-var constants = require("./../mfConstants");
 
+var RHInput = require('./../components/formConcerns/RHInput');
+var validators = require('./../components/formConcerns/validatorEnum');
 
-var Fluxxor = require("Fluxxor");
-var FluxMixin = Fluxxor.FluxMixin(React);
-var StoreWatchMixin = Fluxxor.StoreWatchMixin;
+var Luxxor = require("./../services/luxxor");
 
 var SignIn = React.createClass({
   displayName: "SignInPage",
-  mixins: [FluxMixin, StoreWatchMixin("authStore") ],
+  mixins: [Luxxor.FluxMixin, Luxxor.StoreWatchMixin("authStore") ],
   contextTypes: { router: React.PropTypes.func.isRequired },
 
   statics: {
     attemptedTransition: null
   },
-
   getStateFromFlux: function(){
     var store = this.getFlux().store("authStore");
     if(store.isLoggedIn()){
@@ -36,10 +33,15 @@ var SignIn = React.createClass({
   },
 
   handleSubmit: function (e) {
-    e.preventDefault();
-    var username = this.refs.username.getValue();
-    var password = this.refs.password.getValue();
-    this.getFlux().actions[constants.USERS.SIGN_IN](username,password);
+      e.preventDefault();
+      if (this.refs.username.isValid()
+          && this.refs.password.isValid()
+      ) {
+
+          var username = this.refs.username.getValue();
+          var password = this.refs.password.getValue();
+          this.getFlux().actions[Luxxor.constants.USERS.SIGN_IN](username, password);
+      }
   },
 
   retryTransition: function () {
@@ -52,7 +54,7 @@ var SignIn = React.createClass({
     }
   },
   renderErrorBlock: function () {
-    return this.state.error ? <p className="help-block">Bad login information</p> : null;
+    return this.state.notInitialLoad && this.state.error ? <p className="help-block">Bad login information</p> : null;
   },
   render: function () {
     return (
@@ -64,8 +66,8 @@ var SignIn = React.createClass({
           </Col>
           <Col md={4}>
             <form onSubmit={this.handleSubmit} className={this.state.error ? "has-error" : null}>
-              <Input type="text" ref="username" placeholder="username" label="Username" />
-              <Input type="password" ref="password" placeholder="password" label="Password" />
+              <RHInput type="text" ref="username" name='username' validators={[validators.REQUIRED]}  />
+              <RHInput type="password" ref="password" name='password' validators={[validators.REQUIRED]}  />
               <Button type="submit" bsStyle="success" className="pull-right">Sign In</Button>
               {this.renderErrorBlock()}
             </form>

@@ -1,21 +1,16 @@
 "use strict";
 var React = require("react");
-var Fluxxor = require("fluxxor");
+var Luxxor = require("./../services/luxxor");
 var Griddle = require('griddle-react');
 var Authentication = require("../mixins/authentication");
 var _ = require("lodash");
-var constants = require("./../mfConstants");
 var Json = require("JSON");
-
-
-var FluxMixin = Fluxxor.FluxMixin(React),
-  StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
 module.exports = React.createClass({
   displayName: "Client List",
-  mixins: [FluxMixin, StoreWatchMixin("clientSummaryStore"),Authentication ],
+  mixins: [Luxxor.FluxMixin, Luxxor.StoreWatchMixin("clientSummaryStore"),Authentication ],
   statics: {
-    resolve: constants.CLIENTS.LOAD_CLIENT_SUMMARIES
+    resolve: Luxxor.constants.CLIENTS.LOAD_CLIENT_SUMMARIES
   },
 
   getStateFromFlux: function(){

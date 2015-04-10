@@ -11,10 +11,7 @@ var Glyphicon = require("react-bootstrap").Glyphicon;
 var ReactRouterBootstrap = require('react-router-bootstrap');
 var NavItemLink = ReactRouterBootstrap.NavItemLink;
 
-var Fluxxor = require("Fluxxor");
-var FluxMixin = Fluxxor.FluxMixin(React);
-var StoreWatchMixin = Fluxxor.StoreWatchMixin;
-var constants = require("./../mfConstants");
+var Luxxor = require("./../services/luxxor");
 var Authentication = require("../mixins/authentication");
 
 var AppNavbar = React.createClass({
@@ -22,10 +19,10 @@ var AppNavbar = React.createClass({
   propTypes: {
     brand: PropTypes.string
   },
-  mixins: [FluxMixin, StoreWatchMixin("authStore"), Authentication],
+  mixins: [Luxxor.FluxMixin, Luxxor.StoreWatchMixin("authStore"), Authentication],
 
   statics: {
-    resolve: constants.USERS.FETCH_USER
+    resolve: Luxxor.constants.USERS.FETCH_USER
   },
 
   getStateFromFlux: function(){
