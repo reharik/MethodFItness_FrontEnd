@@ -1,5 +1,4 @@
 var React = require("react");
-var bs = require("react-bootstrap");
 var RHDisplay = require('./RHDisplay.jsx');
 var RHInput = require('./RHInput.jsx');
 

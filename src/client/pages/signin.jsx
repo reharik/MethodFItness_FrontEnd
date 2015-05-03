@@ -40,7 +40,7 @@ var SignIn = React.createClass({
 
           var username = this.refs.username.getValue();
           var password = this.refs.password.getValue();
-          this.getFlux().actions[Luxxor.constants.USERS.SIGN_IN](username, password);
+          this.getFlux().actions[Luxxor.constants.AUTH.SIGN_IN](username, password);
       }
   },
 

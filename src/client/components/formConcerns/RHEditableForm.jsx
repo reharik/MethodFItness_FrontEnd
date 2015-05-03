@@ -1,5 +1,6 @@
 var React = require("react");
-var bs = require("react-bootstrap");
+var BSbutton = require("react-bootstrap").Button;
+var BSWell = require("react-bootstrap").Well;
 var _ = require("lodash");
 
 
@@ -21,16 +22,16 @@ var RHEditableForm = React.createClass({
     },
     render: function () {
         if(this.props.isEditing){
-            return (<bs.Well>
+            return (<BSWell>
                 {this.props.children}
-                <bs.Button bsStyle='success' name="ok" onClick={this.handleClick}>Ok</bs.Button>
-                <bs.Button bsStyle='danger' name="cancel" onClick={this.handleClick}>X</bs.Button>
-            </bs.Well>);
+                <BSButton bsStyle='success' name="ok" onClick={this.handleClick}>Ok</BSButton>
+                <BSButton bsStyle='danger' name="cancel" onClick={this.handleClick}>X</BSButton>
+            </BSWell>);
         }
-        return (<bs.Well>
+        return (<BSWell>
                     {this.props.children}
-                    <bs.Button bsStyle='info' name="edit" onClick={this.handleClick}>edit</bs.Button>
-                </bs.Well>)
+                    <BSButton bsStyle='info' name="edit" onClick={this.handleClick}>edit</BSButton>
+                </BSWell>)
     }
 });
 

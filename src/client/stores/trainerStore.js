@@ -2,28 +2,28 @@
 
 var Luxxor = require("./../services/luxxor");
 
-var clientSummaryStore = Luxxor.createStore({
+var trainerStore = Luxxor.createStore({
   initialize: function() {
       this.loading = false;
       this.error = null;
-      this.clientSummaries = [];
+      this.trainerSummaries = [];
 
       this.bindActions2({
-          servicesActions: [Luxxor.constants.CLIENTS.LOAD_CLIENT_SUMMARIES],
+          servicesActions: [Luxxor.constants.TRAINERS.LOAD_TRAINER_SUMMARIES],
           directActions: {}
       });
   },
 
-  onLoadClientSummariesSuccess: function(payload) {
+  onLoadTrainerSummariesSuccess: function(payload) {
     this.loading = false;
     this.error = null;
 
-    this.clientSummaries = payload.clientSummaries;
+    this.trainerSummaries = payload.trainerSummaries;
     this.emit("change");
   },
 
-  getClientSummaries: function(){
-    return this.clientSummaries;
+  getTrainerSummaries: function(){
+    return this.trainerSummaries;
   },
   getLoading: function(){
     return this.loading;
@@ -33,4 +33,4 @@ var clientSummaryStore = Luxxor.createStore({
   }
 
 });
-module.exports = clientSummaryStore;
+module.exports = trainerStore;

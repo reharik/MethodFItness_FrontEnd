@@ -9,7 +9,7 @@ var Root = React.createClass({
   displayName: "Root",
   mixins: [Luxxor.FluxMixin],
   statics: {
-    resolve: Luxxor.constants.USERS.FETCH_USER
+    resolve: Luxxor.constants.AUTH.FETCH_USER
   },
   getStateFromFlux: function(){
     return{

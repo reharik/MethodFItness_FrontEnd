@@ -22,7 +22,7 @@ var AppNavbar = React.createClass({
   mixins: [Luxxor.FluxMixin, Luxxor.StoreWatchMixin("authStore"), Authentication],
 
   statics: {
-    resolve: Luxxor.constants.USERS.FETCH_USER
+    resolve: Luxxor.constants.AUTH.FETCH_USER
   },
 
   getStateFromFlux: function(){

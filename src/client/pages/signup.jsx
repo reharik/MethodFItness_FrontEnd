@@ -45,7 +45,7 @@ var SignUp = React.createClass({
             var repeatPassword = this.refs.repeatPassword.getValue();
             if (newUser.password === repeatPassword && newUser.password.trim()) {
                 var _flux = this.getFlux();
-                _flux.actions[luxxor.constants.USERS.SIGN_UP](newUser);
+                _flux.actions[luxxor.constants.AUTH.SIGN_UP](newUser);
                 //return this.setState({ error: "Could not Create the User" });
             }
         }

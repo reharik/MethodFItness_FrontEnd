@@ -5,21 +5,23 @@ var Router = require("react-router");
 
 var constants = require("./mfConstants");
 var routes = require("./routes");
-var actions = require("./actions/actions");
+var authActions = require("./actions/authActions");
+var clientActions = require("./actions/clientActions");
+var trainerActions = require("./actions/trainerActions");
+
 var AuthStore = require("./stores/authStore");
-var ClientStore = require("./stores/clientStore");
+var TrainerStore = require("./stores/trainerStore");
 var ClientSummaryStore = require("./stores/clientSummaryStore");
 var _ = require("lodash");
-
 
 //require("./less/main.less");
 
 var stores = {
   authStore: new AuthStore(),//,
-  clientStore: new ClientStore(),
+  trainerStore: new TrainerStore(),
   clientSummaryStore: new ClientSummaryStore()
 };
-var allActions = _.merge(actions.authActions,actions.clientActions);
+var allActions = _.merge(authActions,clientActions,trainerActions);
 var flux = new Luxxor.Flux(stores,allActions);
 //flux.addAction(actions.authActions);
 //flux.addAction(actions.clientActions);

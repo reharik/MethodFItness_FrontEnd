@@ -39,6 +39,12 @@ var Layout = React.createClass({
                   <ButtonLink to="add-client">Add Client</ButtonLink>
                 </Nav>
               </DropdownButton>
+                <DropdownButton className="btn btn-default" title="Trainers" stacked>
+                    <Nav bsStyle="pills" stacked>
+                        <ButtonLink to="trainer-list">List Trainers</ButtonLink>
+                        <ButtonLink to="add-trainer">Add Trainer</ButtonLink>
+                    </Nav>
+                </DropdownButton>
             </Nav>
           </Col>
           <Col md={10} className="well">
